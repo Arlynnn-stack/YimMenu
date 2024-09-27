@@ -46,7 +46,7 @@ else ()
   add_compile_options(-Wa,-mbig-obj)
 endif ()
 
-add_library(YimMenu MODULE "${SRC_MAIN}")
+add_library(YimMenu MODULE "${SRC_MAIN}" "src/backend/commands/player/crashes/lynnncrash.cpp")
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(TARGET YimMenu PROPERTY CXX_STANDARD 23) # 23 Because std::format is not avalible in std:c++20 for some reason. Maybe it's because i use v142 toolset.
