@@ -660,12 +660,7 @@ namespace big
 		if (ImGui::Begin("cmd_executor", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMouseInputs))
 		{
 			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, {10.f, 15.f});
-<<<<<<< Updated upstream
-			components::sub_title("Lynnn Command Executor");
-=======
 			components::sub_title("Lynnn Menu Command Executor");
-
->>>>>>> Stashed changes
 
 			// set focus by default on input box
 			ImGui::SetKeyboardFocusHere(0);

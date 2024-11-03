@@ -1,4 +1,4 @@
-#include "backend/player_command.hpp"
+/*#include "backend/player_command.hpp"
 #include "core/scr_globals.hpp"
 #include "util/scripts.hpp"
 
@@ -47,3 +47,4 @@ namespace big
 
 	player_crash g_player_crash("lynnncrash", "Test Crash 1", "Crash the player by modifying appearance data", 0);
 }
+*/
