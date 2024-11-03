@@ -42,7 +42,9 @@ namespace big
 			});
 
 			if (found != arguments.end())
+			{
 				return &*found;
+			}
 
 			return nullptr;
 		}
@@ -108,7 +110,9 @@ namespace big
 		    command_count(0)
 		{
 			if (buffer.empty())
+			{
 				return;
+			}
 
 			clean_buffer(buffer);
 			parse_buffer();
@@ -165,7 +169,9 @@ namespace big
 		std::string deserialize()
 		{
 			if (command_count == 0)
+			{
 				return std::string();
+			}
 
 			std::string deserialized_buffer;
 			for (auto& command : command_scopes)
@@ -175,11 +181,15 @@ namespace big
 					deserialized_buffer += argument.name;
 
 					if (argument.name != command.arguments.back().name)
+					{
 						deserialized_buffer += ' ';
+					}
 				}
 
 				if (command.raw != command_scopes.back().raw)
+				{
 					deserialized_buffer += ';';
+				}
 			}
 
 			return deserialized_buffer;
@@ -192,7 +202,9 @@ namespace big
 			});
 
 			if (found != command_scopes.end())
+			{
 				return &*found;
+			}
 
 			return nullptr;
 		}
@@ -202,12 +214,16 @@ namespace big
 			auto* scope = get_command_scope(cursor_pos);
 
 			if (!scope)
+			{
 				return false;
+			}
 
 			auto* argument = scope->get_argument(cursor_pos);
 
 			if (!argument)
+			{
 				return false;
+			}
 
 			return argument->is_argument;
 		}
@@ -217,12 +233,16 @@ namespace big
 			auto* scope = get_command_scope(cursor_pos);
 
 			if (!scope)
+			{
 				return -1;
+			}
 
 			auto* argument = scope->get_argument(cursor_pos);
 
 			if (!argument)
+			{
 				return -1;
+			}
 
 			return argument->index;
 		}
@@ -232,7 +252,9 @@ namespace big
 			auto* scope = get_command_scope(cursor_pos);
 
 			if (!scope)
+			{
 				return nullptr;
+			}
 
 			return scope->cmd;
 		}
@@ -242,12 +264,16 @@ namespace big
 			auto* scope = get_command_scope(index);
 
 			if (!scope)
+			{
 				return;
+			}
 
 			auto* argument = scope->get_argument(index);
 
 			if (!argument)
+			{
 				return;
+			}
 
 			auto original_arg_textlen = argument->name.length();
 			auto new_arg_textlen      = new_argument.length();
@@ -310,14 +336,18 @@ namespace big
 	std::string auto_fill_command(std::string current_buffer)
 	{
 		if (command::get(rage::joaat(current_buffer)) != nullptr)
+		{
 			return current_buffer;
+		}
 
 		for (auto [key, cmd] : g_commands)
 		{
 			if (cmd && cmd->get(key) && &cmd->get_name())
 			{
 				if (cmd->get_name().find(current_buffer) != std::string::npos)
+				{
 					return cmd->get_name();
+				}
 			}
 		}
 
@@ -333,12 +363,16 @@ namespace big
 		auto current_scope = s_buffer.get_command_scope(cursor_pos);
 
 		if (!current_scope)
+		{
 			return suggestions;
+		}
 
 		auto argument = current_scope->get_argument(cursor_pos);
 
 		if (!argument)
+		{
 			return suggestions;
+		}
 
 		for (auto suggestion : suggestions)
 		{
@@ -346,7 +380,9 @@ namespace big
 			string::operations::to_lower(suggestion_lowercase);
 
 			if (suggestion_lowercase.find(filter_lowercase) != std::string::npos || does_string_exist_in_list(argument->name, suggestions) /*Need this to maintain suggestion list while navigating it*/)
+			{
 				suggestions_filtered.push_back(suggestion);
+			}
 		}
 
 		return suggestions_filtered;
@@ -376,13 +412,17 @@ namespace big
 		}
 
 		if (!current_command)
+		{
 			return;
+		}
 
 		auto suggestions = current_command->get_argument_suggestions(argument_index);
 		auto argument    = scope->get_argument(cursor_pos);
 
 		if (suggestions == std::nullopt)
+		{
 			return;
+		}
 
 		for (auto suggestion : suggestion_list_filtered(suggestions.value(), argument->name))
 		{
@@ -408,7 +448,9 @@ namespace big
 		if (found == list.end())
 		{
 			if (list.size() > 0)
+			{
 				current = list.back();
+			}
 
 			return;
 		}
@@ -420,7 +462,9 @@ namespace big
 		}
 
 		if (found - 1 != list.end())
+		{
 			current = *(found - 1);
+		}
 	}
 
 	void get_next_from_list(std::vector<std::string>& list, std::string& current)
@@ -432,7 +476,9 @@ namespace big
 		if (found == list.end())
 		{
 			if (list.size() > 0)
+			{
 				current = list.front();
+			}
 
 			return;
 		}
@@ -444,13 +490,17 @@ namespace big
 		}
 
 		if (found + 1 != list.end())
+		{
 			current = *(found + 1);
+		}
 	}
 
 	void update_current_argument_with_suggestion(ImGuiInputTextCallbackData* data, std::string suggestion)
 	{
 		if (!data)
+		{
 			return;
+		}
 
 		std::string new_text;
 		auto sbuffer        = serialized_buffer(data->Buf);
@@ -458,15 +508,21 @@ namespace big
 		auto argument_index = sbuffer.get_argument_index_from_char_index(data->CursorPos);
 
 		if (!scope)
+		{
 			return;
+		}
 
 		if (argument_index == -1)
+		{
 			return;
+		}
 
 		auto argument = scope->get_argument(data->CursorPos);
 
 		if (!argument)
+		{
 			return;
+		}
 
 		sbuffer.update_argument_of_scope(data->CursorPos, argument_index, suggestion);
 
@@ -505,7 +561,7 @@ namespace big
 		{
 			return 0;
 		}
-		
+
 		if (cursor_pos != data->CursorPos)
 		{
 			selected_suggestion = std::string();
@@ -550,37 +606,49 @@ namespace big
 		else if (data->EventFlag == ImGuiInputTextFlags_CallbackHistory)
 		{
 			if (current_suggestion_list.empty())
+			{
 				return 0;
+			}
 
 			if (data->EventKey == ImGuiKey_UpArrow)
+			{
 				get_previous_from_list(current_suggestion_list, selected_suggestion);
+			}
 			else if (data->EventKey == ImGuiKey_DownArrow)
+			{
 				get_next_from_list(current_suggestion_list, selected_suggestion);
+			}
 
 			if (!selected_suggestion.empty() && !suggestion_is_history)
 			{
 				auto scope = s_buffer.get_command_scope(data->CursorPos);
 
 				if (!scope)
+				{
 					return 0;
+				}
 
 				auto argument = scope->get_argument(data->CursorPos);
 
 				if (!argument)
+				{
 					return 0;
+				}
 
 				data->SelectionStart = argument->start_index;
 				data->SelectionEnd   = argument->end_index;
 			}
 		}
-		
+
 		return 0;
 	}
 
 	void view::cmd_executor()
 	{
 		if (!g.cmd_executor.enabled || g_pointers->m_gta.m_get_last_keyboard_state() == KeyboardState::ACTIVE)
+		{
 			return;
+		}
 
 		float screen_x = (float)*g_pointers->m_gta.m_resolution_x;
 		float screen_y = (float)*g_pointers->m_gta.m_resolution_y;
@@ -592,7 +660,12 @@ namespace big
 		if (ImGui::Begin("cmd_executor", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMouseInputs))
 		{
 			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, {10.f, 15.f});
+<<<<<<< Updated upstream
 			components::sub_title("Lynnn Command Executor");
+=======
+			components::sub_title("Lynnn Menu Command Executor");
+
+>>>>>>> Stashed changes
 
 			// set focus by default on input box
 			ImGui::SetKeyboardFocusHere(0);
@@ -601,7 +674,9 @@ namespace big
 			if (components::input_text_with_hint("", "CMD_EXECUTOR_TYPE_CMD"_T, command_buffer, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CallbackCompletion | ImGuiInputTextFlags_CallbackHistory | ImGuiInputTextFlags_CallbackAlways, nullptr, input_callback))
 			{
 				if (!s_buffer.get_command_of_index(cursor_pos))
+				{
 					goto VIEW_END;
+				}
 
 				if (command::process(command_buffer, std::make_shared<default_command_context>(), false))
 				{
@@ -617,7 +692,9 @@ namespace big
 				get_appropriate_suggestion(command_buffer, auto_fill_suggestion);
 
 				if (auto_fill_suggestion != command_buffer)
+				{
 					ImGui::Text("Suggestion: %s", auto_fill_suggestion.data());
+				}
 			}
 
 			components::small_text("CMD_EXECUTOR_MULTIPLE_CMDS"_T);
@@ -626,7 +703,9 @@ namespace big
 			ImGui::Spacing();
 
 			if (suggestion_is_history)
+			{
 				components::sub_title("CMD_HISTORY_LABEL"_T);
+			}
 
 			if (current_suggestion_list.size() > 0)
 			{
@@ -657,12 +736,16 @@ namespace big
 				auto current_scope    = s_buffer.get_command_scope(cursor_pos);
 
 				if (!current_scope)
+				{
 					goto VIEW_END;
+				}
 
 				auto argument = current_scope->get_argument(cursor_pos);
 
 				if (!argument)
+				{
 					goto VIEW_END;
+				}
 
 				auto current_command = current_scope->cmd;
 
@@ -690,7 +773,9 @@ namespace big
 					for (auto& [hash, cmd] : all_commands)
 					{
 						if (cmd && cmd->get_name().length() > 0)
+						{
 							command_names.push_back(cmd->get_name());
+						}
 					}
 
 					auto filtered_commands = suggestion_list_filtered(command_names, argument->name);

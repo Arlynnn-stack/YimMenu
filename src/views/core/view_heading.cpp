@@ -1,5 +1,5 @@
-#include "views/view.hpp"
 #include "lua/lua_manager.hpp"
+#include "views/view.hpp"
 
 namespace big
 {
@@ -10,19 +10,24 @@ namespace big
 		if (ImGui::Begin("menu_heading", nullptr, window_flags | ImGuiWindowFlags_NoScrollbar))
 		{
 			ImGui::BeginGroup();
-			ImGui::Text("HEADING_WELCOME"_T.data());
-			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.172f, 0.380f, 0.909f, 1.f));
+			ImGui::Text("Lynnn Menu");
+
+			// Menggunakan warna ungu untuk nama pemain
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.0f, 0.5f, 1.0f)); // Ungu
 			ImGui::Text(g_local_player == nullptr || g_local_player->m_player_info == nullptr ?
-			        "UNKNOWN_USERNAME"_T.data() :
+			        "Unknownuser"_T.data() :
 			        g_local_player->m_player_info->m_net_player_data.m_name);
 			ImGui::PopStyleColor();
+
 			ImGui::EndGroup();
 #ifdef YIM_DEV
 			ImGui::SameLine();
 			ImGui::SetCursorPos(
 			    {(300.f * g.window.gui_scale) - ImGui::CalcTextSize("UNLOAD"_T.data()).x - ImGui::GetStyle().ItemSpacing.x,
 			        ImGui::GetStyle().WindowPadding.y / 2 + ImGui::GetStyle().ItemSpacing.y + (ImGui::CalcTextSize("W").y / 2)});
-			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.69f, 0.29f, 0.29f, 1.00f));
+
+			// Menggunakan warna merah untuk butang UNLOAD
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.0f, 0.0f, 1.00f)); // Merah
 			if (components::nav_button("UNLOAD"_T))
 			{
 				g_lua_manager->trigger_event<menu_event::MenuUnloaded>();

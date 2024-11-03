@@ -941,9 +941,9 @@ namespace big
 
 		struct window
 		{
-			ImU32 background_color = 3696311571;
+			ImU32 background_color = 2516582400;//warna hitam dengan tranparancy sikit
 			ImU32 text_color       = 4294967295;
-			ImU32 button_color     = 2947901213;
+			ImU32 button_color     = 2946699367;//tukar warna prple button
 			ImU32 frame_color      = 2942518340;
 			float gui_scale        = 1.f;
 

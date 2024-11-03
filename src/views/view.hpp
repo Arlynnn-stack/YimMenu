@@ -2,6 +2,7 @@
 #include "debug/view_debug.hpp"
 #include "esp/view_esp.hpp"
 #include "gui/components/components.hpp"
+#include "services\notifications\notification.hpp" // Pastikan notification.hpp di-import jika belum
 
 //Percentage of window space
 constexpr auto listbox_width  = 0.5f;
@@ -9,7 +10,6 @@ constexpr auto listbox_height = 0.2f;
 
 namespace big
 {
-
 	inline ImVec2 get_listbox_dimensions()
 	{
 		return {750 * listbox_width, 1000 * listbox_height};
@@ -34,7 +34,7 @@ namespace big
 		static void heading();
 		static void mobile();
 		static void navigation();
-		static void notifications();
+		static void notifications(); // Deklarasi fungsi notifications
 		static void overlay();
 		static void root();
 		static void self();
@@ -79,11 +79,8 @@ namespace big
 		static void gta_cache();
 		static void lua_scripts();
 		static void vfx();
-
 		static void onboarding();
-
 		static void cmd_executor();
-
 		static void player_info();
 		static void player_teleport();
 		static void player_kick();
@@ -91,4 +88,7 @@ namespace big
 		static void player_misc();
 		static void player_vehicle();
 	};
+
+	// Deklarasi fungsi draw_notification
+	float draw_notification(float start_pos, ImDrawList* dl, const notification& notif);
 }

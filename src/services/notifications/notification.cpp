@@ -13,11 +13,19 @@ namespace big
 	{
 		switch (type)
 		{
-		case NotificationType::DANGER: m_color = ImVec4(0.69f, 0.29f, 0.29f, 1.00f); break;
-		case NotificationType::WARNING: m_color = ImVec4(0.69f, 0.49f, 0.29f, 1.00f); break;
-		case NotificationType::SUCCESS: m_color = ImVec4(0.29f, 0.69f, 0.34f, 1.00f); break;
+		case NotificationType::DANGER:
+			m_color = ImVec4(0.9f, 0.2f, 0.2f, 1.00f); // Merah cerah
+			break;
+		case NotificationType::WARNING:
+			m_color = ImVec4(0.9f, 0.7f, 0.2f, 1.00f); // Kuning keemasan
+			break;
+		case NotificationType::SUCCESS:
+			m_color = ImVec4(0.2f, 0.9f, 0.2f, 1.00f); // Hijau cerah
+			break;
 		default:
-		case NotificationType::INFO: m_color = ImVec4(0.80f, 0.80f, 0.83f, 1.00f); break;
+		case NotificationType::INFO:
+			m_color = ImVec4(0.6f, 0.2f, 0.8f, 1.00f); // Ungu
+			break;
 		}
 	}
 

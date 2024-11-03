@@ -107,108 +107,131 @@ namespace big
 
 	void gui::dx_init()
 	{
-		static auto bgColor     = ImVec4(0.09f, 0.094f, 0.129f, .9f);
-		static auto primary     = ImVec4(0.172f, 0.380f, 0.909f, 1.f);
-		static auto secondary   = ImVec4(0.443f, 0.654f, 0.819f, 1.f);
-		static auto whiteBroken = ImVec4(0.792f, 0.784f, 0.827f, 1.f);
+		// Definisi warna-warna yang digunakan dalam GUI menggunakan ImVec4
+		// Format ImVec4 adalah (red, green, blue, alpha) dengan nilai antara 0.0 hingga 1.0
+		static auto bgColor     = ImVec4(0.09f, 0.094f, 0.129f, .9f);  // Warna latar belakang (gelap)
+		static auto primary     = ImVec4(0.172f, 0.380f, 0.909f, 1.f); // Warna utama (biru terang)
+		static auto secondary   = ImVec4(0.443f, 0.654f, 0.819f, 1.f); // Warna sekunder (biru kelabu)
+		static auto whiteBroken = ImVec4(0.792f, 0.784f, 0.827f, 1.f); // Warna hampir putih (kelabu terang)
 
-		auto& style             = ImGui::GetStyle();
-		style.WindowPadding     = ImVec2(15, 15);
-		style.WindowRounding    = 10.f;
-		style.WindowBorderSize  = 0.f;
-		style.FramePadding      = ImVec2(5, 5);
-		style.FrameRounding     = 4.0f;
-		style.ItemSpacing       = ImVec2(12, 8);
-		style.ItemInnerSpacing  = ImVec2(8, 6);
-		style.IndentSpacing     = 25.0f;
-		style.ScrollbarSize     = 15.0f;
-		style.ScrollbarRounding = 9.0f;
-		style.GrabMinSize       = 5.0f;
-		style.GrabRounding      = 3.0f;
-		style.ChildRounding     = 4.0f;
+		// Mendapatkan dan mengubah gaya ImGui
+		auto& style = ImGui::GetStyle();
 
-		auto& colors                          = style.Colors;
-		colors[ImGuiCol_Text]                 = ImGui::ColorConvertU32ToFloat4(g.window.text_color);
-		colors[ImGuiCol_TextDisabled]         = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
-		colors[ImGuiCol_WindowBg]             = ImGui::ColorConvertU32ToFloat4(g.window.background_color);
-		colors[ImGuiCol_ChildBg]              = ImGui::ColorConvertU32ToFloat4(g.window.background_color);
-		colors[ImGuiCol_PopupBg]              = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
-		colors[ImGuiCol_Border]               = ImVec4(0.80f, 0.80f, 0.83f, 0.88f);
-		colors[ImGuiCol_BorderShadow]         = ImVec4(0.92f, 0.91f, 0.88f, 0.00f);
-		colors[ImGuiCol_FrameBg]              = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-		colors[ImGuiCol_FrameBgHovered]       = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
-		colors[ImGuiCol_FrameBgActive]        = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-		colors[ImGuiCol_TitleBg]              = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-		colors[ImGuiCol_TitleBgCollapsed]     = ImVec4(1.00f, 0.98f, 0.95f, 0.75f);
-		colors[ImGuiCol_TitleBgActive]        = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
-		colors[ImGuiCol_MenuBarBg]            = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-		colors[ImGuiCol_ScrollbarBg]          = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-		colors[ImGuiCol_ScrollbarGrab]        = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
-		colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-		colors[ImGuiCol_ScrollbarGrabActive]  = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-		colors[ImGuiCol_CheckMark]            = ImVec4(1.00f, 0.98f, 0.95f, 0.61f);
-		colors[ImGuiCol_SliderGrab]           = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
-		colors[ImGuiCol_SliderGrabActive]     = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-		colors[ImGuiCol_Button]               = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
-		colors[ImGuiCol_ButtonHovered]        = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
-		colors[ImGuiCol_ButtonActive]         = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-		colors[ImGuiCol_Header]               = ImVec4(0.30f, 0.29f, 0.32f, 1.00f);
-		colors[ImGuiCol_HeaderHovered]        = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-		colors[ImGuiCol_HeaderActive]         = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-		colors[ImGuiCol_ResizeGrip]           = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
-		colors[ImGuiCol_ResizeGripHovered]    = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-		colors[ImGuiCol_ResizeGripActive]     = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-		colors[ImGuiCol_PlotLines]            = ImVec4(0.40f, 0.39f, 0.38f, 0.63f);
-		colors[ImGuiCol_PlotLinesHovered]     = ImVec4(0.25f, 1.00f, 0.00f, 1.00f);
-		colors[ImGuiCol_PlotHistogram]        = ImVec4(0.40f, 0.39f, 0.38f, 0.63f);
-		colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.25f, 1.00f, 0.00f, 1.00f);
-		colors[ImGuiCol_TextSelectedBg]       = ImVec4(0.25f, 1.00f, 0.00f, 0.43f);
+		// Menetapkan padding dan rounding untuk window
+		style.WindowPadding     = ImVec2(15, 15); // Padding untuk window
+		style.WindowRounding    = 10.f;           // Rounding untuk sudut window
+		style.WindowBorderSize  = 0.f;            // Tiada border pada window
+		style.FramePadding      = ImVec2(5, 5);   // Padding untuk frame
+		style.FrameRounding     = 4.0f;           // Rounding untuk sudut frame
+		style.ItemSpacing       = ImVec2(12, 8);  // Spacing antara item
+		style.ItemInnerSpacing  = ImVec2(8, 6);   // Spacing dalam item
+		style.IndentSpacing     = 25.0f;          // Spacing untuk indentasi
+		style.ScrollbarSize     = 15.0f;          // Saiz scrollbar
+		style.ScrollbarRounding = 9.0f;           // Rounding untuk scrollbar
+		style.GrabMinSize       = 5.0f;           // Saiz minimum untuk grab
+		style.GrabRounding      = 3.0f;           // Rounding untuk grab
+		style.ChildRounding     = 4.0f;           // Rounding untuk child windows
 
+		// Mendapatkan dan menetapkan warna-warna untuk komponen GUI
+		auto& colors                  = style.Colors;
+		colors[ImGuiCol_Text]         = ImGui::ColorConvertU32ToFloat4(g.window.text_color); // Warna teks
+		colors[ImGuiCol_TextDisabled] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f); // Warna teks yang dinonaktifkan
+		colors[ImGuiCol_WindowBg] = ImGui::ColorConvertU32ToFloat4(g.window.background_color); // Warna latar belakang window
+		colors[ImGuiCol_ChildBg] = ImGui::ColorConvertU32ToFloat4(g.window.background_color); // Warna latar belakang child window
+		colors[ImGuiCol_PopupBg]      = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);   // Warna latar belakang popup
+		colors[ImGuiCol_Border]       = ImVec4(0.80f, 0.80f, 0.83f, 0.88f);   // Warna border
+		colors[ImGuiCol_BorderShadow] = ImVec4(0.92f, 0.91f, 0.88f, 0.00f);   // Bayangan border
+		colors[ImGuiCol_FrameBg]      = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);   // Warna latar belakang frame
+		colors[ImGuiCol_FrameBgHovered] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f); // Warna latar belakang frame ketika hovered
+		colors[ImGuiCol_FrameBgActive] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f); // Warna latar belakang frame ketika aktif
+		colors[ImGuiCol_TitleBg]       = ImVec4(0.10f, 0.09f, 0.12f, 1.00f); // Warna latar belakang tajuk
+		colors[ImGuiCol_TitleBgCollapsed] = ImVec4(1.00f, 0.98f, 0.95f, 0.75f); // Warna latar belakang tajuk yang dilipat
+		colors[ImGuiCol_TitleBgActive] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f); // Warna latar belakang tajuk ketika aktif
+		colors[ImGuiCol_MenuBarBg]     = ImVec4(0.10f, 0.09f, 0.12f, 1.00f); // Warna latar belakang menu bar
+		colors[ImGuiCol_ScrollbarBg]   = ImVec4(0.10f, 0.09f, 0.12f, 1.00f); // Warna latar belakang scrollbar
+		colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.80f, 0.80f, 0.83f, 0.31f); // Warna grab scrollbar
+		colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f); // Warna grab scrollbar ketika hovered
+		colors[ImGuiCol_ScrollbarGrabActive]  = ImVec4(0.06f, 0.05f, 0.07f, 1.00f); // Warna grab scrollbar ketika aktif
+		colors[ImGuiCol_CheckMark]            = ImVec4(1.00f, 0.98f, 0.95f, 0.61f); // Warna tanda semak
+		colors[ImGuiCol_SliderGrab]           = ImVec4(0.80f, 0.80f, 0.83f, 0.31f); // Warna grab slider
+		colors[ImGuiCol_SliderGrabActive]     = ImVec4(0.06f, 0.05f, 0.07f, 1.00f); // Warna grab slider ketika aktif
+		colors[ImGuiCol_Button]               = ImVec4(0.24f, 0.23f, 0.29f, 1.00f); // Warna butang
+		colors[ImGuiCol_ButtonHovered]        = ImVec4(0.24f, 0.23f, 0.29f, 1.00f); // Warna butang ketika hovered
+		colors[ImGuiCol_ButtonActive]         = ImVec4(0.56f, 0.56f, 0.58f, 1.00f); // Warna butang ketika aktif
+		colors[ImGuiCol_Header]               = ImVec4(0.30f, 0.29f, 0.32f, 1.00f); // Warna header
+		colors[ImGuiCol_HeaderHovered]        = ImVec4(0.56f, 0.56f, 0.58f, 1.00f); // Warna header ketika hovered
+		colors[ImGuiCol_HeaderActive]         = ImVec4(0.06f, 0.05f, 0.07f, 1.00f); // Warna header ketika aktif
+		colors[ImGuiCol_ResizeGrip]           = ImVec4(0.00f, 0.00f, 0.00f, 0.00f); // Warna grip untuk resize
+		colors[ImGuiCol_ResizeGripHovered]    = ImVec4(0.56f, 0.56f, 0.58f, 1.00f); // Warna grip ketika hovered
+		colors[ImGuiCol_ResizeGripActive]     = ImVec4(0.06f, 0.05f, 0.07f, 1.00f); // Warna grip ketika aktif
+		colors[ImGuiCol_PlotLines]            = ImVec4(0.40f, 0.39f, 0.38f, 0.63f); // Warna garis plot
+		colors[ImGuiCol_PlotLinesHovered]     = ImVec4(0.25f, 1.00f, 0.00f, 1.00f); // Warna garis plot ketika hovered
+		colors[ImGuiCol_PlotHistogram]        = ImVec4(0.40f, 0.39f, 0.38f, 0.63f); // Warna histogram plot
+		colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.25f, 1.00f, 0.00f, 1.00f); // Warna histogram ketika hovered
+		colors[ImGuiCol_TextSelectedBg] = ImVec4(0.25f, 1.00f, 0.00f, 0.43f); // Warna latar belakang teks yang dipilih
+
+		// Menyimpan gaya default untuk pemulihan kemudian
 		save_default_style();
 	}
 
 	void gui::dx_on_tick()
 	{
+		// Memeriksa jika GUI dibuka
 		if (m_is_open)
 		{
-			push_theme_colors();
-			view::root(); // frame bg
-			pop_theme_colors();
+			push_theme_colors(); // Menghantar warna tema
+			view::root();        // Menggambar latar belakang bingkai
+			pop_theme_colors();  // Mengeluarkan warna tema
 		}
 	}
 
 	void gui::save_default_style()
 	{
+		// Menyimpan gaya default untuk pemulihan
 		memcpy(&m_default_config, &ImGui::GetStyle(), sizeof(ImGuiStyle));
 	}
 
 	void gui::restore_default_style()
 	{
+		// Memulihkan gaya default yang disimpan sebelumnya
 		memcpy(&ImGui::GetStyle(), &m_default_config, sizeof(ImGuiStyle));
 	}
 
 	void gui::push_theme_colors()
 	{
+		// Mendapatkan warna butang dari konfigurasi global
 		auto button_color = ImGui::ColorConvertU32ToFloat4(g.window.button_color);
+
+		// Menetapkan warna untuk butang ketika hovered dan aktif
 		auto button_active_color =
 		    ImVec4(button_color.x + 0.33f, button_color.y + 0.33f, button_color.z + 0.33f, button_color.w);
 		auto button_hovered_color =
 		    ImVec4(button_color.x + 0.15f, button_color.y + 0.15f, button_color.z + 0.15f, button_color.w);
+
+		// Mendapatkan warna frame dari konfigurasi global
 		auto frame_color = ImGui::ColorConvertU32ToFloat4(g.window.frame_color);
+
+		// Menetapkan warna untuk frame ketika hovered dan aktif
 		auto frame_hovered_color =
 		    ImVec4(frame_color.x + 0.14f, frame_color.y + 0.14f, frame_color.z + 0.14f, button_color.w);
 		auto frame_active_color =
 		    ImVec4(frame_color.x + 0.30f, frame_color.y + 0.30f, frame_color.z + 0.30f, button_color.w);
 
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImGui::ColorConvertU32ToFloat4(g.window.background_color));
-		ImGui::PushStyleColor(ImGuiCol_Text, ImGui::ColorConvertU32ToFloat4(g.window.text_color));
-		ImGui::PushStyleColor(ImGuiCol_Button, button_color);
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, button_hovered_color);
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, button_active_color);
-		ImGui::PushStyleColor(ImGuiCol_FrameBg, frame_color);
-		ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, frame_hovered_color);
-		ImGui::PushStyleColor(ImGuiCol_FrameBgActive, frame_active_color);
+		// Menghantar warna tema ke ImGui
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImGui::ColorConvertU32ToFloat4(g.window.background_color)); // Warna latar belakang window
+		ImGui::PushStyleColor(ImGuiCol_Text, ImGui::ColorConvertU32ToFloat4(g.window.text_color)); // Warna teks
+		ImGui::PushStyleColor(ImGuiCol_Button, button_color);                                      // Warna butang
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, button_hovered_color); // Warna butang ketika hovered
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, button_active_color);   // Warna butang ketika aktif
+		ImGui::PushStyleColor(ImGuiCol_FrameBg, frame_color);                // Warna latar belakang frame
+		ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, frame_hovered_color); // Warna latar belakang frame ketika hovered
+		ImGui::PushStyleColor(ImGuiCol_FrameBgActive, frame_active_color);   // Warna latar belakang frame ketika aktif
 	}
+
+
+
+
+
 
 	void gui::pop_theme_colors()
 	{

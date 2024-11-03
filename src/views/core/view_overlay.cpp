@@ -23,9 +23,14 @@ namespace big
 		}
 		if (ImGui::Begin("overlay", nullptr, window_flags))
 		{
-			ImGui::Text("YimMenu");
+			ImGui::Text("Lynnn Menu");
 
 			ImGui::Separator();
+
+			ImGui::Text("version 1.0.3");
+
+			ImGui::Separator();
+
 
 			if (g.window.ingame_overlay.show_fps)
 			{

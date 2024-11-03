@@ -13,5 +13,5 @@ namespace big
 	};
 
 	external_console
-	    g_external_console("external_console", "BACKEND_EXTERNAL_CONSOLE", "BACKEND_EXTERNAL_CONSOLE_DESC", g.debug.external_console);
+	    g_external_console("external_console", "BACKEND_EXTERNAL_CONSOLE", "Toggle LynnnMenu Developer Console", g.debug.external_console);
 }

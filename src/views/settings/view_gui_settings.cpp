@@ -15,29 +15,45 @@ namespace big
 		}
 
 		components::sub_title("SETTINGS_UI_COLOR"_T);
+
+		// Warna latar belakang
 		static ImVec4 col_gui = ImGui::ColorConvertU32ToFloat4(g.window.background_color);
 		if (ImGui::ColorEdit4("SETTINGS_UI_COLOR_PICKER"_T.data(), (float*)&col_gui, ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_NoSidePreview))
 		{
 			g.window.background_color = ImGui::ColorConvertFloat4ToU32(col_gui);
 		}
 
+		// Warna teks
 		static ImVec4 col_text = ImGui::ColorConvertU32ToFloat4(g.window.text_color);
 		if (ImGui::ColorEdit4("VIEW_GUI_SETTINGS_TEXT_COLOR"_T.data(), (float*)&col_text, ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_NoSidePreview))
 		{
 			g.window.text_color = ImGui::ColorConvertFloat4ToU32(col_text);
 		}
 
+		// Warna butang
 		static ImVec4 col_button = ImGui::ColorConvertU32ToFloat4(g.window.button_color);
 		if (ImGui::ColorEdit4("VIEW_GUI_SETTINGS_BUTTON_COLOR"_T.data(), (float*)&col_button, ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_NoSidePreview))
 		{
 			g.window.button_color = ImGui::ColorConvertFloat4ToU32(col_button);
 		}
 
+		// Warna bingkai
 		static ImVec4 col_frame = ImGui::ColorConvertU32ToFloat4(g.window.frame_color);
 		if (ImGui::ColorEdit4("VIEW_GUI_SETTINGS_FRAME_COLOR"_T.data(), (float*)&col_frame, ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_NoSidePreview))
 		{
 			g.window.frame_color = ImGui::ColorConvertFloat4ToU32(col_frame);
 		}
+
+		// Mengemas kini warna yang digunakan dalam GUI
+		auto& style                     = ImGui::GetStyle();
+		style.Colors[ImGuiCol_WindowBg] = col_gui;    // Warna latar belakang untuk GUI
+		style.Colors[ImGuiCol_Text]     = col_text;   // Warna teks
+		style.Colors[ImGuiCol_Button]   = col_button; // Warna butang
+		style.Colors[ImGuiCol_FrameBg]  = col_frame;  // Warna bingkai
+
+		// Mengemas kini warna butang dalam notifikasi jika diperlukan
+		// Anda mungkin perlu menambah kod tambahan di sini jika notifikasi juga perlu diselaraskan
+	
 
 		components::sub_title("VIEW_GUI_SETTINGS_INGAME_OVERLAY"_T);
 		ImGui::Checkbox("VIEW_GUI_SETTINGS_SHOW_OVERLAY"_T.data(), &g.window.ingame_overlay.opened);

@@ -6,8 +6,9 @@ namespace big
 {
 	bool notification_service::initialise()
 	{
-		push("NOTIFICATION_WELCOME_TITLE"_T.data(),
-		    std::vformat("NOTIFICATION_WELCOME_TEXT"_T, std::make_format_args(ImGui::key_names[g.settings.hotkeys.menu_toggle])));
+		push("Welcome",
+		    std::format("Lynnn Menu is now loaded\nYou can use the hotkeys {} to open the menu.",
+		        ImGui::key_names[g.settings.hotkeys.menu_toggle]));
 
 		return true;
 	}

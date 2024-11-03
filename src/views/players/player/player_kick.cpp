@@ -26,5 +26,15 @@ namespace big
 		components::player_command_button<"desync">(g_player_service->get_selected());
 		ImGui::SameLine();
 		components::player_command_button<"battleupdate">(g_player_service->get_selected());
+
+		ImGui::SeparatorText("Crashes");
+		components::player_command_button<"dominant">(g_player_service->get_selected());
+		ImGui::SameLine();
+		components::player_command_button<"fragcrash">(g_player_service->get_selected());
+		components::player_command_button<"nextgen">(g_player_service->get_selected());
+		ImGui::SameLine();
+		components::player_command_button<"woodcrash">(g_player_service->get_selected());
+		ImGui::EndDisabled();
+
 	}
 }
